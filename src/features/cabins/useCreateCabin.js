@@ -21,4 +21,3 @@ export function useCreateCabin() {
 
   return { isCreating, createCabin };
 }
-
