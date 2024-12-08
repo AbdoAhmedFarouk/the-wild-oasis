@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import useUrl from "../hooks/useUrl";
 
 const StyledFilter = styled.div`
   border: 1px solid var(--color-grey-100);
@@ -24,7 +25,6 @@ const FilterButton = styled.button`
   border-radius: var(--border-radius-sm);
   font-weight: 500;
   font-size: 1.4rem;
-  /* To give the same height as select */
   padding: 0.44rem 0.8rem;
   transition: all 0.3s;
 
@@ -33,3 +33,31 @@ const FilterButton = styled.button`
     color: var(--color-brand-50);
   }
 `;
+
+function Filter({ filterField, options }) {
+  const { currentFilter, handleFn: handleClick } = useUrl(
+    filterField,
+    options.at(0).value
+  );
+
+  return (
+    <StyledFilter>
+      {options.map((option) => (
+        <FilterButton
+          active={option.value === currentFilter ? "active" : ""}
+          disabled={option.value === currentFilter}
+          key={option.value}
+          onClick={() =>
+            handleClick(filterField, option.value, {
+              filterName: "page",
+            })
+          }
+        >
+          {option.label}
+        </FilterButton>
+      ))}
+    </StyledFilter>
+  );
+}
+
+export default Filter;
