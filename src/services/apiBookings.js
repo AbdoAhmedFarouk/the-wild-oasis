@@ -84,11 +84,14 @@ export async function getStaysAfterDate(date) {
 }
 
 export async function getStaysTodayActivity() {
+  const today = getToday();
+  const endOfToday = getToday({ end: true });
+
   const { data, error } = await supabase
     .from("bookings")
     .select("*, guests(fullName, nationality, countryFlag)")
     .or(
-      `and(status.eq.unconfirmed,startDate.eq.${getToday()}),and(status.eq.checked-in,endDate.eq.${getToday()})`,
+      `and(status.eq.unconfirmed,startDate.gte.${today},startDate.lte.${endOfToday}),and(status.eq.checked-in,endDate.gte.${today},endDate.lte.${endOfToday})`,
     )
     .order("created_at");
 
