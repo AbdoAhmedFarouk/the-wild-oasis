@@ -20,6 +20,15 @@ function Login() {
       <Heading as="h4">Log in to your account</Heading>
 
       <LoginForm />
+
+      <div>
+        <p>For testing purposes only:</p>
+        <p>
+          Email: kabowin582@noomlocs.com
+          <br />
+          Password: 123456789
+        </p>
+      </div>
     </LoginLayout>
   );
 }
